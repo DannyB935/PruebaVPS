@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build -- --configuration production --base-href /angularapp/
 
 #Parte 2 donde se crea el container de NGINX
 FROM nginx:alpine
