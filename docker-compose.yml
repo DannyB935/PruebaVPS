@@ -1,0 +1,30 @@
+services:
+  angular-app:
+    build:
+      context: ./daisy-prod
+      dockerfile: Dockerfile
+    container_name: angular-prueba-daisy
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped
+    networks:
+      - mynet
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./PruebaProd
+      dockerfile: ./PruebaProd/Dockerfile
+    container_name: dotnet-prueba-api
+    ports:
+      - "127.0.0.1:5286:8080"
+    networks:
+      - mynet
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+
+networks:
+  mynet:
+    driver: bridge
